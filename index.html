@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>키마키마송</title>
+</head>
+<body style="margin:0; background:black; display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; color:white; font-family:sans-serif;">
+
+    <div id="play-screen" style="text-align:center; cursor:pointer;">
+        <p>화면을 터치하면 노래가 시작됩니다</p>
+    </div>
+
+    <audio id="bgm" loop>
+        <source src="bgm.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        document.body.addEventListener('click', function() {
+            const audio = document.getElementById('bgm');
+            audio.play();
+            document.getElementById('play-screen').innerHTML = "재생 중";
+        }, { once: true });
+    </script>
+
+</body>
+</html>
