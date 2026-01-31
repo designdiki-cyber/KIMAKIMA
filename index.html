@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>키마키마송 플레이어</title>
+    <title>키마키마송</title>
     <style>
         body {
             margin: 0;
@@ -12,47 +12,47 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            /* 배경 이미지 설정: bg.JPG 파일을 배경으로 사용 */
-            background: url('bg.jpg') no-repeat center center fixed;
+            /* 배경 사진 경로를 './'를 붙여 명확히 합니다 */
+            background: url('./bg.jpg') no-repeat center center fixed;
             background-size: cover;
-            font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+            font-family: sans-serif;
+            overflow: hidden;
         }
-        /* 반투명한 플레이어 창 */
+        /* 플레이어 박스 사이즈 축소 */
         .player-card {
-            background: rgba(255, 255, 255, 0.85);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
             text-align: center;
-            width: 80%;
-            max-width: 300px;
-            backdrop-filter: blur(10px);
+            width: 220px; /* 기존보다 더 슬림하게 변경 */
+            backdrop-filter: blur(5px);
         }
         .album-art {
-            width: 150px;
-            height: 150px;
+            width: 100px; /* 사이즈 축소 */
+            height: 100px;
             background: #FFD400;
-            margin: 0 auto 20px;
-            border-radius: 15px;
+            margin: 0 auto 15px;
+            border-radius: 12px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 50px;
+            font-size: 40px;
         }
         .title {
-            font-size: 20px;
+            font-size: 17px;
             font-weight: bold;
             margin-bottom: 5px;
             color: #333;
         }
         .status {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 20px;
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 15px;
         }
         .control-btn {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             border: none;
             background: #FFD400;
@@ -61,24 +61,18 @@
             justify-content: center;
             align-items: center;
             margin: 0 auto;
-            transition: transform 0.2s;
         }
-        .control-btn:active {
-            transform: scale(0.9);
-        }
-        /* 재생/정지 아이콘 모양 */
-        .icon {
-            width: 0; height: 0;
-            border-style: solid;
-        }
+        /* 아이콘 사이즈 조절 */
         .play-icon {
-            border-width: 10px 0 10px 20px;
+            width: 0; height: 0;
+            border-width: 8px 0 8px 16px;
+            border-style: solid;
             border-color: transparent transparent transparent #000;
-            margin-left: 5px;
+            margin-left: 3px;
         }
         .pause-icon {
-            width: 15px; height: 20px;
-            border-width: 0 5px;
+            width: 12px; height: 16px;
+            border-width: 0 4px;
             border-color: #000;
             border-style: double;
         }
@@ -89,7 +83,7 @@
     <div class="player-card">
         <div class="album-art">🎵</div>
         <div class="title">키마키마송</div>
-        <div id="status" class="status">준비 완료</div>
+        <div id="status" class="status">터치하여 재생</div>
         
         <button id="play-btn" class="control-btn">
             <div id="btn-icon" class="play-icon"></div>
@@ -110,7 +104,7 @@
             if (audio.paused) {
                 audio.play();
                 icon.className = 'pause-icon';
-                status.innerText = '지금 재생 중...';
+                status.innerText = '재생 중';
             } else {
                 audio.pause();
                 icon.className = 'play-icon';
