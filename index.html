@@ -3,15 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>키마키마송</title>
+    <title>키마키마송 플레이어</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            /* 배경 이미지 설정: bg.jpg 파일을 배경으로 사용 */
+            background: url('bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+        }
+        /* 반투명한 플레이어 창 */
+        .player-card {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
+            width: 80%;
+            max-width: 300px;
+            backdrop-filter: blur(10px);
+        }
+        .album-art {
+            width: 150px;
+            height: 150px;
+            background: #FFD400;
+            margin: 0 auto 20px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 50px;
+        }
+        .title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .status {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .control-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            background: #FFD400;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            transition: transform 0.2s;
+        }
+        .control-btn:active {
+            transform: scale(0.9);
+        }
+        /* 재생/정지 아이콘 모양 */
+        .icon {
+            width: 0; height: 0;
+            border-style: solid;
+        }
+        .play-icon {
+            border-width: 10px 0 10px 20px;
+            border-color: transparent transparent transparent #000;
+            margin-left: 5px;
+        }
+        .pause-icon {
+            width: 15px; height: 20px;
+            border-width: 0 5px;
+            border-color: #000;
+            border-style: double;
+        }
+    </style>
 </head>
-<body style="margin:0; background:black; display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; color:white; font-family:sans-serif;">
+<body>
 
-    <div id="status-text" style="margin-bottom: 20px;">화면을 터치하여 노래를 시작하세요</div>
-
-    <button id="play-btn" style="padding: 15px 30px; font-size: 18px; border-radius: 50px; border: none; background: #FFD400; color: black; font-weight: bold; cursor: pointer;">
-        노래 재생하기
-    </button>
+    <div class="player-card">
+        <div class="album-art">🎵</div>
+        <div class="title">키마키마송</div>
+        <div id="status" class="status">준비 완료</div>
+        
+        <button id="play-btn" class="control-btn">
+            <div id="btn-icon" class="play-icon"></div>
+        </button>
+    </div>
 
     <audio id="bgm" loop>
         <source src="bgm.mp3" type="audio/mpeg">
@@ -20,22 +103,20 @@
     <script>
         const audio = document.getElementById('bgm');
         const btn = document.getElementById('play-btn');
-        const statusText = document.getElementById('status-text');
+        const icon = document.getElementById('btn-icon');
+        const status = document.getElementById('status');
 
         btn.addEventListener('click', function() {
             if (audio.paused) {
                 audio.play();
-                btn.innerText = "노래 일시정지";
-                btn.style.background = "#ffffff";
-                statusText.innerText = "키마키마송 재생 중";
+                icon.className = 'pause-icon';
+                status.innerText = '지금 재생 중...';
             } else {
                 audio.pause();
-                btn.innerText = "노래 다시 재생";
-                btn.style.background = "#FFD400";
-                statusText.innerText = "노래가 일시정지 되었습니다";
+                icon.className = 'play-icon';
+                status.innerText = '일시정지됨';
             }
         });
     </script>
-
 </body>
 </html>
