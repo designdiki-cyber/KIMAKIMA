@@ -7,20 +7,34 @@
 </head>
 <body style="margin:0; background:black; display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; color:white; font-family:sans-serif;">
 
-    <div id="play-screen" style="text-align:center; cursor:pointer;">
-        <p>화면을 터치하면 노래가 시작됩니다</p>
-    </div>
+    <div id="status-text" style="margin-bottom: 20px;">화면을 터치하여 노래를 시작하세요</div>
+
+    <button id="play-btn" style="padding: 15px 30px; font-size: 18px; border-radius: 50px; border: none; background: #FFD400; color: black; font-weight: bold; cursor: pointer;">
+        노래 재생하기
+    </button>
 
     <audio id="bgm" loop>
         <source src="bgm.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        document.body.addEventListener('click', function() {
-            const audio = document.getElementById('bgm');
-            audio.play();
-            document.getElementById('play-screen').innerHTML = "재생 중";
-        }, { once: true });
+        const audio = document.getElementById('bgm');
+        const btn = document.getElementById('play-btn');
+        const statusText = document.getElementById('status-text');
+
+        btn.addEventListener('click', function() {
+            if (audio.paused) {
+                audio.play();
+                btn.innerText = "노래 일시정지";
+                btn.style.background = "#ffffff";
+                statusText.innerText = "키마키마송 재생 중";
+            } else {
+                audio.pause();
+                btn.innerText = "노래 다시 재생";
+                btn.style.background = "#FFD400";
+                statusText.innerText = "노래가 일시정지 되었습니다";
+            }
+        });
     </script>
 
 </body>
